@@ -1,0 +1,194 @@
+﻿@using Newtonsoft.Json;
+@using AttendanceApp.Models;
+
+@{ Employee userinfo = JsonConvert.DeserializeObject<Employee>(User.Identity.Name); }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Leave Management Application</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/custom/")plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/custom/")plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="@Url.Content("~/Content/custom/")plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/custom/")dist/css/adminlte.min.css">
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="index3.html" class="brand-link">
+                <img src="@Url.Content("~/Content/custom/")dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">AdminLTE 3</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="@Url.Content("~/Content/custom/")dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    @{ if(userinfo != null)
+                        {
+            <div class="info">
+                <a href="#" class="d-block">@userinfo.FirstName</a>
+            </div> } }
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <div class="form-inline">
+                    <div class="input-group" data-widget="sidebar-search">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <li class="nav-header">TRANSACTIONS</li>
+                        @{ if(userinfo != null)
+                            {
+                                if(userinfo.UserRoles == "Admin")
+                                {
+
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","Leave")" class="nav-link">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            Leave Approval
+                            <span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                </li>
+ }
+            else
+            {
+<li class="nav-item">
+    <a href="@Url.Action("Index","Leave")" class="nav-link">
+        <i class="nav-icon fas fa-calendar-alt"></i>
+        <p>
+            Leave Entry
+            <span class="badge badge-info right">2</span>
+        </p>
+    </a>
+</li> }
+
+<li class="nav-item">
+    <a href="@Url.Action("LogOff", "Account")" class="nav-link">
+        <i class="nav-icon far fa-circle text-danger"></i>
+        <p class="text">Log Off</p>
+    </a>
+</li>
+ } }
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 3.1.0-rc
+            </div>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Content/custom/")plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="@Url.Content("~/Content/custom/")plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE -->
+    <script src="@Url.Content("~/Content/custom/")dist/js/adminlte.js"></script>
+
+    <!-- OPTIONAL SCRIPTS -->
+    <script src="@Url.Content("~/Content/custom/")plugins/chart.js/Chart.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="@Url.Content("~/Content/custom/")dist/js/demo.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="@Url.Content("~/Content/custom/")dist/js/pages/dashboard3.js"></script>
+    <!-- date-range-picker -->
+    <script src="@Url.Content("~/Content/custom/")plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/custom/")plugins/select2/js/select2.full.min.js"></script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+
+            //Date range picker
+            $('#reservationdate').datetimepicker({
+                format: 'L'
+            });
+            //Date range picker
+            $('#reservation').daterangepicker()
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+                locale: {
+                    format: 'MM/DD/YYYY hh:mm A'
+                }
+            })
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )
+
+            //Timepicker
+            $('#timepicker').datetimepicker({
+                format: 'LT'
+            })
+
+    </script>
+</body>
+</html>
